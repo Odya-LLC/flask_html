@@ -2,16 +2,16 @@
 Flask-Html
 -------------
 
-This is the description for Flask-Html
+This is the description for Flask-HTML
 """
 from setuptools import setup
 
 long_description = """
-Flask-Html
+Flask-HTML
 """
 
 setup(
-    name='Flask-Html',
+    name='Flask-HTML',
     version='1.0.0',
     url='https://github.com/Odya-LLC/flask_html',
     license='MIT',
