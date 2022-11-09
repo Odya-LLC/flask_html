@@ -39,7 +39,10 @@ def index():
     
     body = Body(page, styles=Style(color="red", padding_top="15px"),classes=['class1', 'class2'], id='body_id',elements=[
         Div(styles=Style(margin="10px"), classes=['class1', 'class2'], id='div_id', elements=[
-            P(styles=Style(color="blue"), classes=['class1', 'class2'], id='p_id', elements=[
+            P(styles=Style(color="blue"), id='p_id', elements=[
+                "Hello World"
+            ]),
+            P(styles=Style(color="blue"), id='p_id', elements=[
                 "Hello World"
             ])
         ]),

@@ -41,25 +41,26 @@ class Item:
     __props = None
     page = None
     elements = []
-    styles = ""
+    styles = None
     js = ""
     def register_style(self):
         if self.styles:
-            self.page.register_style(self.styles)
-        for item in self.elements:
-            if isinstance(item, Item):
-                item.page = self.page
-                item.register_style()
-    
-    def register_js(self):
+            self.page.register_style(self.styles[0], self.styles[1])
         if self.js:
             self.page.register_js(self.js)
-        for item in self.elements:
-            if isinstance(item, Item):
-                item.page = self.page
-                item.register_js()
+        for i in range(len(self.elements)):
+            if isinstance(self.elements[i], Item):
+                self.elements[i].page = self.page
+                self.elements[i].register_style()
+    
+    
+    def get_tag(self):
+        return self.__tag
     
     def __init__(self, page: Page = None, classes: List[str] = [], id: str = None, style: Style = None, tag: str = "div", content: List[object] = [], props: Dict[str, str] = {}):
+
+        classes = [] if len(classes) == 0 else classes
+        props = {} if len(props) == 0 else props
         """Base template for all HTML elements
 
         Args:
@@ -74,12 +75,14 @@ class Item:
         if page:
             self.page = page
         self.elements = content
+        self._cls = classes
         _cl = None
         if style:
             _cl = self.__generate_style(style)
-            classes.append(_cl)
-        if len(classes) > 0:
-            self.__append_classes(classes)
+            self._cls.append(_cl)
+        
+        if len(self._cls) > 0:
+            self.__append_classes()
         else:
             self.__classes = ""
         if id:
@@ -112,8 +115,9 @@ class Item:
             _cnt += str(item)
         return self.item.format(tag=self.__tag, classes=self.__classes, id=self.__id, content=_cnt, props=self.__props)
 
-    def __append_classes(self,classes: List[str] = None):
-        print(classes)
+    def __append_classes(self):
+        classes = self._cls
+        
         _res = ""
         if classes:
             _res = "class='"
@@ -129,10 +133,5 @@ class Item:
         return self.__register_style(self.hash_code, styles)
 
     def __register_style(self, hash_code: str, styles: str):
-        _st = """
-        .{hash_code} {{
-        {styles}
-        }}
-        """.format(hash_code = hash_code, styles=styles)
-        self.styles = _st
+        self.styles = (hash_code, styles)
         return hash_code

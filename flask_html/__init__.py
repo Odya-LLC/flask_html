@@ -59,13 +59,21 @@ class Page:
         """        
         self.head = head
         self.lang = lang
-    custom_classes = ""
+    custom_classes = {}
     custom_js = ""
     def render(self, content, request):
         css = request.args.get("css")
         _js = request.args.get("js")
         if css:
-            resp = make_response(self.custom_classes)
+            res = ""
+            for key, value in self.custom_classes.items():
+                _st = """
+                    .{hash_code} {{
+                    {styles}
+                    }}
+                    """.format(hash_code = key, styles=value)
+                res += _st
+            resp = make_response(res)
             resp.headers['Content-Type'] = 'text/css ;charset=utf-8'
             return resp
         if _js:
@@ -83,8 +91,8 @@ class Page:
             """.format(lang=self.lang, head = self.head.render(), content=str(content))
         return content
     
-    def register_style(self, style: str):
-        self.custom_classes += style
+    def register_style(self, hash_code: str, style: str):
+        self.custom_classes[hash_code] = style
     
     def register_js(self, js: str):
         self.custom_js += js
