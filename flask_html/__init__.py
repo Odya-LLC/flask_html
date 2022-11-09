@@ -2,9 +2,9 @@ from typing import Dict, List
 from flask import request, make_response
 
 class Head:
-    custom_styles = ""
     def __init__(self, title: str, styles : List[str] = [], scripts : List[str] = [], metas : List[Dict[str, str]] = []):
         styles.append(request.url + "?css=1")
+        scripts.append(request.url + "?js=1")
         _cont = """
         <head>
         <meta charset="UTF-8">
@@ -37,28 +37,26 @@ class Head:
         return self.content
     
     def render(self):
-        if self.custom_styles != "":
-            self.content+="""
-            <style>
-            {styles}
-            </style>
-            """.format(styles=self.custom_styles)
         self.content += """</head>"""
         return self.content
-    
-    def register_style(self, style: str):
-        self.custom_styles += style
+
 
 class Page:
     def __init__(self, head : Head, lang: str = "en"):
         self.head = head
         self.lang = lang
     custom_classes = ""
+    custom_js = ""
     def render(self, content, request):
         css = request.args.get("css")
+        _js = request.args.get("js")
         if css:
             resp = make_response(self.custom_classes)
             resp.headers['Content-Type'] = 'text/css ;charset=utf-8'
+            return resp
+        if _js:
+            resp = make_response(self.custom_js)
+            resp.headers['Content-Type'] = 'text/javascript ;charset=utf-8'
             return resp
         content = """
             <!DOCTYPE html>
@@ -73,3 +71,6 @@ class Page:
     
     def register_style(self, style: str):
         self.custom_classes += style
+    
+    def register_js(self, js: str):
+        self.custom_js += js
