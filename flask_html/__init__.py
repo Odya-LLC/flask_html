@@ -3,6 +3,14 @@ from flask import request, make_response
 
 class Head:
     def __init__(self, title: str, styles : List[str] = [], scripts : List[str] = [], metas : List[Dict[str, str]] = []):
+        """Head element for HTML page
+
+        Args:
+            title (str): Title of page
+            styles (List[str], optional): List of style sources. Defaults to [].
+            scripts (List[str], optional): List of js sources. Defaults to [].
+            metas (List[Dict[str, str]], optional): List of meta objects. Defaults to [].
+        """        
         styles.append(request.url + "?css=1")
         scripts.append(request.url + "?js=1")
         _cont = """
@@ -43,6 +51,12 @@ class Head:
 
 class Page:
     def __init__(self, head : Head, lang: str = "en"):
+        """Page template for HTML
+
+        Args:
+            head (Head): Head element
+            lang (str, optional): Language of html page. Defaults to "en".
+        """        
         self.head = head
         self.lang = lang
     custom_classes = ""

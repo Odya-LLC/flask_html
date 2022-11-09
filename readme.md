@@ -15,7 +15,8 @@ pip install flask_html
 ## Usage
 ```python
 from flask_html import Page, Head
-from flask_html.tags import Style, Body, Div, P
+from flask_html.core import Style
+from flask_html.tags import Body, Div, P
 from flask import request
 @app.route('/')
 def index():
@@ -52,23 +53,24 @@ Args:
 """
 Div(styles=None, classes=[], id=None, elements=[], props={})
 ```
-### All elements
+## To Do
 
- - Div
- - P
- - B
- - H1-H6
- - A
- - Img
- - Span
- - Ul
- - Li
- - Button
- - Input
- - Form
- - Header
- - Footer
- - Nav
+ - [x] All HTML tags
+ - [x] Inline CSS
+ - [x] Classes
+ - [x] ID
+ - [x] Child elements
+ - [x] Additional tag properties
+ - [x] JS
+ - [x] Meta tags
+ - [x] Link tags
+ - [x] Title
+ - [x] Head
+ - [x] Body
+ - [x] Page
+ - [ ] Element event listeners
+ - [ ] DOM manipulation
+ - [ ] More examples
 
 ## License
 This project is licensed under the MIT License (see the `LICENSE` file for details).
