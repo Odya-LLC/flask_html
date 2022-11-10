@@ -87,12 +87,12 @@ This project is licensed under the MIT License (see the `LICENSE` file for detai
 
 setup(
     name='Flask-HTML',
-    version='1.1.0',
+    version='1.1.1',
     url='https://github.com/Odya-LLC/flask_html',
     license='MIT',
     author='odya',
     author_email='mmuhtor@gmail.com',
-    description='Component based html generator for flask',
+    description='HTML generator for Flask applications. Make your HTML code more readable and easier to maintain.',
     long_description=long_description,
     long_description_content_type='text/markdown',
     packages=['flask_html'],
