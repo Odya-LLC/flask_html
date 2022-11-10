@@ -29,14 +29,8 @@ from flask_html.tags import Body, Div, P
 from flask import request
 @app.route('/')
 def index():
-    head = Head('Title', [],['https://code.jquery.com/jquery-3.6.1.min.js'], [{"meta_property": "value"}])
+    head = Head('Title', ['link to css'],['link to js'], [{"meta_property": "value"}])
     page = Page(head)
-    page.register_js(\"\"\"
-                    $(document).ready(function(){
-                        $("body").append("<p>hello world</p>");
-                    })
-                     
-                     \"\"\")
     body = Body(page, styles=Style(color="red", padding_top="15px"),classes=['class1', 'class2'], id='body_id',elements=[
         Div(styles=Style(margin="10px"), classes=['class1', 'class2'], id='div_id', elements=[
             P(styles=Style(color="blue"), classes=['class1', 'class2'], id='p_id', elements=[
@@ -77,7 +71,7 @@ Div(styles=None, classes=[], id=None, elements=[], props={})
  - [x] Head
  - [x] Body
  - [x] Page
- - [ ] Element event listeners
+ - [x] Element event listeners
  - [ ] DOM manipulation
  - [ ] More examples
 
@@ -87,7 +81,7 @@ This project is licensed under the MIT License (see the `LICENSE` file for detai
 
 setup(
     name='Flask-HTML',
-    version='1.1.1',
+    version='1.1.2',
     url='https://github.com/Odya-LLC/flask_html',
     license='MIT',
     author='odya',
