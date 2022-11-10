@@ -115,7 +115,7 @@ class B(Item):
         
 
 class Button(Item):
-    def __init__(self, _type: str, title: str, styles: Style = None, classes: List[str] = [], id: str = None, props: Dict[str, str] = {}):
+    def __init__(self, title: str, _type: str="button", styles: Style = None, classes: List[str] = [], id: str = None, props: Dict[str, str] = {}):
         """Button HTML element
         
         Args:
@@ -837,7 +837,20 @@ class S(Item):
             props (Dict[str, str], optional): Additional tag properties. Defaults to {}.
         """
         super().__init__(None, classes, id, styles, "s", [text], props)
+
+class Small(Item):
+    def __init__(self, text: str, styles: Style = None, classes: List[str] = [], id: str = None, props: Dict[str, str] = {}):
+        """Small HTML element
         
+        Args:
+            text (str): Text.
+            styles (Style, optional): Inline css styles. Defaults to None.
+            classes (List[str], optional): List of class names. Defaults to [].
+            id (str, optional): Unique ID. Defaults to None.
+            props (Dict[str, str], optional): Additional tag properties. Defaults to {}.
+        """
+        super().__init__(None, classes, id, styles, "small", [text], props)
+
 class Script(Item):
     def __init__(self, src: str = None, text: str = None, styles: Style = None, classes: List[str] = [], id: str = None, props: Dict[str, str] = {}):
         """Script HTML element
