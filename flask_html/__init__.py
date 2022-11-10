@@ -10,9 +10,13 @@ class Head:
             styles (List[str], optional): List of style sources. Defaults to [].
             scripts (List[str], optional): List of js sources. Defaults to [].
             metas (List[Dict[str, str]], optional): List of meta objects. Defaults to [].
-        """        
-        styles.append(request.url + "?css=1")
-        scripts.append(request.url + "?js=1")
+        """
+        if "?" in request.url:
+            styles.append(request.url + "&css=1")
+            scripts.append(request.url + "&js=1")
+        else:
+            styles.append(request.url + "?css=1")
+            scripts.append(request.url + "?js=1")
         _cont = """
         <head>
         <meta charset="UTF-8">
@@ -77,7 +81,10 @@ class Page:
             resp.headers['Content-Type'] = 'text/css ;charset=utf-8'
             return resp
         if _js:
-            resp = make_response(self.custom_js)
+            res = """
+            $(document).ready(function(){{ {js} }})
+            """.format(js=self.custom_js)
+            resp = make_response(res)
             resp.headers['Content-Type'] = 'text/javascript ;charset=utf-8'
             return resp
         content = """
