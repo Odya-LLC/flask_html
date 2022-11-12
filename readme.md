@@ -13,6 +13,9 @@ pip install flask_html
 ```
 
 ## Usage
+
+### Simple HTML
+
 ```python
 from flask_html import Page, Head
 from flask_html.core import Style
@@ -30,6 +33,20 @@ def index():
         ])
     ])
     return page.render(body, request)
+```
+
+### Using with listeners
+
+Note: Jquery automatically injected
+
+```python
+opts = [Option('{}'.format(x),'Name {}'.format(x)) for x in range(10)]
+sel = Select(opts).on('change', 'let val = $(this).val(); alert(val)')
+page = Page(Head('Title', ['link to css'],['link to js'], [{"meta_property": "value"}]))
+body = Body(page, elements=[
+    sel
+])
+return page.render(body, request)
 ```
 
 ## Elements
@@ -64,7 +81,12 @@ Div(styles=None, classes=[], id=None, elements=[], props={})
  - [x] Page
  - [x] Element event listeners
  - [ ] DOM manipulation
+ - [ ] Converting js function to python functions
  - [ ] More examples
+
+## Contibuting
+
+This package open to contributing. Fork, make changes and open pull request
 
 ## License
 This project is licensed under the MIT License (see the `LICENSE` file for details).
